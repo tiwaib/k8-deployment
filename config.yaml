@@ -1,0 +1,16 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: spring-cluster
+  region: us-west-2  # Change the region as needed
+
+nodeGroups:
+  - name: worker-nodes
+    instanceType: t3.small  # You can adjust instance type as needed
+    desiredCapacity: 3
+    minSize: 2
+    maxSize: 4
+    iam:
+      withAddonPolicies:
+        imageBuilder: true  # You can add other necessary IAM policies based

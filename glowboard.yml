@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glowboard-deployment
+  labels:
+    app: glowboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glowboard
+  template:
+    metadata:
+      labels:
+        app: glowboard
+    spec:
+      containers:
+        - name: glowboard
+          image: tiwaibironke/glowboard:latest
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: glowboard-service
+spec:
+  selector:
+    app: glowboard
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

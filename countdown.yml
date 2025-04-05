@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: countdown-deployment
+  labels:
+    app: countdown
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: countdown
+  template:
+    metadata:
+      labels:
+        app: countdown
+    spec:
+      containers:
+        - name: countdown
+          image: tiwaibironke/countdown:latest
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: countdown-service
+spec:
+  selector:
+    app: countdown
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
